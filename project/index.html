@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kemeted Saveur — Bois vivant</title>
+<link rel="stylesheet" href="pop/pop-styles.css">
+</head>
+<body>
+
+<div id="blobs"><span class="blob x1"></span><span class="blob x2"></span><span class="blob x3"></span><span class="blob x4"></span></div>
+
+<!-- NAV -->
+<header class="nav">
+  <a class="nav__brand" href="#hero"><img src="assets/logo.png" alt="Kemeted"><span>Kemeted</span></a>
+  <nav class="nav__links">
+    <a href="#ingredients">Saveurs</a>
+    <a href="#produits">Boutique</a>
+    <a href="#gourmandise">Gourmandise</a>
+    <a href="#histoire">Histoire</a>
+  </nav>
+  <a class="nav__cta" href="#produits">Commander 🛒</a>
+</header>
+
+<!-- HERO -->
+<section class="hero layer" id="hero" data-screen-label="Hero">
+  <div class="hero__copy">
+    <span class="pill reveal">✦ Le superfood qui pétille</span>
+    <h1 class="hero__title reveal d1"><span class="l1">Bois <span class="a">vivant</span>,</span><br><span class="l2">bois <span class="b">Kemeted</span></span></h1>
+    <p class="hero__sub reveal d2">Bissap, ditakh, baobab — des jus d'Afrique qui réveillent les papilles et la bonne humeur.</p>
+    <div class="hero__actions reveal d3">
+      <a href="#produits" class="btn">Goûter maintenant <span>→</span></a>
+      <a href="#histoire" class="btn btn--ghost">Notre histoire</a>
+    </div>
+  </div>
+  <div class="hero__media reveal d2">
+    <div class="hero__disc" data-parallax="0.05"></div>
+    <span class="spark s1">✦</span><span class="spark s2">✺</span><span class="spark s3">✷</span>
+    <div class="hero__photo" data-parallax="0.1">
+      <video class="loop-vid" src="../input/v1.mp4" muted playsinline preload="auto" loop disablepictureinpicture></video>
+    </div>
+  </div>
+  <div class="hero__scroll"><span class="dot"></span> Scroller pour explorer</div>
+</section>
+
+<!-- MANIFESTE -->
+<section class="panel panel--bissap sec manifeste" data-screen-label="Manifeste">
+  <div class="wrap">
+    <span class="kicker reveal">Le manifeste</span>
+    <p class="big reveal d1">Des plantes d'Afrique qui nourrissent depuis des siècles. On les met en bouteille — <em>sans sucre ajouté</em>, juste l'énergie, le goût et la joie.</p>
+  </div>
+  <div class="manifeste-vid reveal d3">
+    <video class="scroll-vid" src="../input/v7.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+  </div>
+</section>
+
+<!-- INGREDIENTS -->
+<section class="panel panel--cream sec layer" id="ingredients" data-screen-label="Ingrédients">
+  <div class="wrap">
+    <div class="shead reveal">
+      <h2>Quatre saveurs, zéro ennui</h2>
+      <p>Chaque jus part d'un superfruit cultivé en Afrique de l'Ouest, pressé à froid.</p>
+    </div>
+    <div class="ing-grid">
+      <article class="ing i1 reveal">
+        <div class="circ" style="background:#7A1F38">BSP</div>
+        <h3>Bissap</h3>
+        <p>La fleur d'hibiscus rouge, acidulée et florale. Le classique qui réveille.</p>
+        <div class="tags"><span>Antioxydant</span><span>Vitamine C</span></div>
+      </article>
+      <article class="ing i2 reveal d1">
+        <div class="circ" style="background:#E0892F">BLC</div>
+        <h3>Bissap Blanc</h3>
+        <p>Plus doux, plus solaire. Une variété rare à la robe orangée.</p>
+        <div class="tags"><span>Digestion</span><span>Léger</span></div>
+      </article>
+      <article class="ing i3 reveal d2">
+        <div class="circ" style="background:#727F38">DTK</div>
+        <h3>Ditakh</h3>
+        <p>Le fruit vert acidulé du Sahel, vif et plein de fibres.</p>
+        <div class="tags"><span>Fibres</span><span>Immunité</span></div>
+      </article>
+      <article class="ing i4 reveal d3">
+        <div class="circ" style="background:#B6905C">BYE</div>
+        <h3>Bouye</h3>
+        <p>La pulpe crémeuse du baobab. Onctueuse et championne du calcium.</p>
+        <div class="tags"><span>Calcium</span><span>Crémeux</span></div>
+      </article>
+    </div>
+    <div class="ing-vid reveal d1">
+      <video class="loop-vid" src="../input/v11.mp4" muted playsinline preload="auto" loop disablepictureinpicture></video>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUITS -->
+<section class="panel panel--mint sec layer" id="produits" data-screen-label="Produits">
+  <div class="prod-scene" aria-hidden="true">
+    <img class="prod-scene__img" src="" alt="">
+  </div>
+  <div class="wrap">
+    <div class="shead reveal">
+      <h2>La collection</h2>
+      <p>Pressés à froid, en bouteille de verre consignée. À l'unité ou en coffret.</p>
+    </div>
+    <div class="prod-grid">
+      <article class="prod reveal" data-pid="bissap"
+        data-bg="#FAD9DE" data-img="assets/splash-bissap.png">
+        <div class="disc" style="background:#FAD9DE"><div class="bottle" style="background:linear-gradient(180deg,#9b2942,#7A1F38)"></div></div>
+        <div class="cat">Hibiscus</div><h4>Bissap</h4><div class="price">4,50 €</div>
+        <a href="https://buy.stripe.com/00wfZ9dJU2QX4lSaxG8N208" target="_blank" rel="noopener" class="add" aria-label="Commander le Bissap Rouge">+</a>
+      </article>
+      <article class="prod reveal d1" data-pid="blanc"
+        data-bg="#FBE9C2" data-img="assets/splash-bissap.png" data-filter="hue-rotate(28deg) saturate(0.75)">
+        <div class="disc" style="background:#FBE9C2"><div class="bottle" style="background:linear-gradient(180deg,#eaa356,#E0892F)"></div></div>
+        <div class="cat">Hibiscus blanc</div><h4>Bissap Blanc</h4><div class="price">4,50 €</div>
+        <a href="https://buy.stripe.com/7sY4grgW6bnt9Gc0X68N209" target="_blank" rel="noopener" class="add" aria-label="Commander le Bissap Blanc">+</a>
+      </article>
+      <article class="prod reveal d2" data-pid="ditakh"
+        data-bg="#D6EEDF" data-img="assets/bottle-ditakh.png">
+        <div class="disc" style="background:#D6EEDF"><div class="bottle" style="background:linear-gradient(180deg,#8b9748,#727F38)"></div></div>
+        <div class="cat">Detarium</div><h4>Ditakh</h4><div class="price">4,90 €</div>
+        <a href="https://buy.stripe.com/6oU00bfS2bntdWs21a8N20a" target="_blank" rel="noopener" class="add" aria-label="Commander le Ditakh">+</a>
+      </article>
+      <article class="prod reveal d3" data-pid="bouye"
+        data-bg="#EFE3CF" data-img="assets/bottle-ditakh.png" data-filter="sepia(0.45) hue-rotate(14deg) brightness(1.1)">
+        <div class="disc" style="background:#EFE3CF"><div class="bottle" style="background:linear-gradient(180deg,#d0aa78,#B6905C)"></div></div>
+        <div class="cat">Baobab</div><h4>Bouye</h4><div class="price">4,90 €</div>
+        <a href="https://buy.stripe.com/cNi28j21c1MT19G9tC8N20b" target="_blank" rel="noopener" class="add" aria-label="Commander le Bouye">+</a>
+      </article>
+    </div>
+    <div class="coffret reveal">
+      <div class="ph">
+        <video class="scroll-vid" src="../input/v9.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <img src="assets/pyramid.png" alt="Coffret découverte Kemeted">
+      </div>
+      <div class="txt">
+        <span class="pill">Coffret découverte</span>
+        <h3>Les quatre, d'un coup !</h3>
+        <p>Le coffret signature réunit nos quatre jus dans leurs bouteilles de verre. La meilleure façon de trouver ta saveur — et de l'offrir.</p>
+        <a href="#" class="btn">Commander le coffret <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO PIN v8 — scroll bloque jusqu'à la fin -->
+<section class="vid-pin" id="pin-v8">
+  <div class="vid-pin__inner">
+    <video src="../input/v8.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
+    <div class="vid-pin__overlay">
+      <span class="vid-pin__label">L'énergie à l'état pur</span>
+      <div class="vid-pin__progress-wrap"><div class="vid-pin__bar"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GOURMANDISE -->
+<section class="panel panel--bissap sec layer" id="gourmandise" data-screen-label="Gourmandise">
+  <div class="wrap">
+    <div class="shead reveal">
+      <h2>Et pour la gourmandise ?</h2>
+      <p>Nos superfruits se glissent aussi dans le sucré. Fondant, festif, irrésistible.</p>
+    </div>
+    <div class="gour-grid">
+      <article class="gour tall reveal" data-gour-idx="0" data-pid="donut">
+        <div class="ph">
+          <video class="gour-vid" src="../input/v12.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        </div>
+        <div class="meta"><h4>Donuts fourrés à la gelée de bissap</h4><p>Brioche moelleuse, cœur coulant d'hibiscus rouge.</p></div>
+      </article>
+      <article class="gour reveal d1" data-gour-idx="1" data-pid="bonbon">
+        <div class="ph">
+          <video class="gour-vid" src="../input/v10.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        </div>
+        <div class="meta"><h4>Bonbons gélatine cœurs bouye</h4><p>Tendres, acidulés, au baobab.</p></div>
+      </article>
+      <article class="gour reveal d2" data-gour-idx="2" data-pid="pate">
+        <div class="ph">
+          <video class="gour-vid" src="../input/v8.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        </div>
+        <div class="meta"><h4>Pâtes de fruits ditakh</h4><p>Le vert acidulé, en bouchée.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO PIN v14 — juste avant Notre Histoire -->
+<section class="vid-pin" id="pin-v14">
+  <div class="vid-pin__inner">
+    <video src="../input/v14.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
+    <div class="vid-pin__overlay">
+      <span class="vid-pin__label">Notre histoire</span>
+      <div class="vid-pin__progress-wrap"><div class="vid-pin__bar"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTOIRE -->
+<section class="panel panel--lilac sec layer" id="histoire" data-screen-label="Histoire">
+  <div class="wrap">
+    <div class="hist-grid">
+      <div class="hist-media reveal">
+        <video class="scroll-vid" src="../input/v14.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <img class="hist-bottle" data-parallax="0.05" src="assets/bottle-ditakh.png" alt="Bouteille de ditakh">
+      </div>
+      <div class="hist-copy reveal d1">
+        <span class="kicker">Notre histoire</span>
+        <h2>Un pôle de Kemeted &amp; Association</h2>
+        <p class="lead">« Faire voyager les saveurs d'Afrique sans jamais trahir leur âme. »</p>
+        <p>Kemeted Saveur est le pôle superfood de l'association Kemeted — un collectif culturel qui valorise les patrimoines africains. Chaque bouteille soutient nos projets : transmission, agriculture locale, mémoire.</p>
+        <div class="hist-values">
+          <div class="v"><b>100%</b><span>naturel, 0 sucre ajouté</span></div>
+          <div class="v"><b>4</b><span>superfruits d'Afrique</span></div>
+          <div class="v"><b>1</b><span>mission culturelle</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIENFAITS -->
+<section class="panel panel--cream sec layer" data-screen-label="Bienfaits">
+  <div class="wrap">
+    <div class="shead reveal">
+      <h2>Superfoods &amp; bienfaits</h2>
+      <p>Pas de marketing magique — juste des plantes que les nutritionnistes adorent.</p>
+    </div>
+    <div class="bf-grid">
+      <div class="bf reveal" style="--c:#7A1F38"><div class="ring" style="background:#7A1F38">BSP</div><h4>Bissap</h4><div class="stat">Hibiscus rouge</div><ul><li>Riche en antioxydants</li><li>Soutient la tension</li><li>Source de vitamine C</li></ul></div>
+      <div class="bf reveal d1" style="--c:#E0892F"><div class="ring" style="background:#E0892F">BLC</div><h4>Bissap Blanc</h4><div class="stat">Hibiscus doux</div><ul><li>Facilite la digestion</li><li>Léger, hydratant</li><li>Peu calorique</li></ul></div>
+      <div class="bf reveal d2" style="--c:#727F38"><div class="ring" style="background:#727F38">DTK</div><h4>Ditakh</h4><div class="stat">Detarium senegalense</div><ul><li>Très riche en fibres</li><li>Booste l'immunité</li><li>Énergie durable</li></ul></div>
+      <div class="bf reveal d3" style="--c:#9C6B30"><div class="ring" style="background:#9C6B30">BYE</div><h4>Bouye</h4><div class="stat">Fruit du baobab</div><ul><li>6× plus de calcium</li><li>Source de potassium</li><li>Prébiotiques naturels</li></ul></div>
+    </div>
+  </div>
+  <div class="bf-vid-wrap reveal d4">
+    <video class="scroll-vid" src="../input/v12.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+  </div>
+</section>
+
+<!-- TEMOIGNAGES -->
+<section class="panel panel--butter sec layer" data-screen-label="Témoignages">
+  <div class="wrap">
+    <div class="shead reveal"><h2>On en parle</h2><p>Une gorgée, et le souvenir revient.</p></div>
+    <div class="temo-grid">
+      <article class="temo reveal"><div class="stars">★★★★★</div><p class="q">« Le bissap a exactement le goût de celui de ma grand-mère à Dakar. J'en ai pleuré ! »</p><div class="who"><span class="av" style="background:#7A1F38">A</span><div><b>Aïssatou D.</b><span>Paris</span></div></div></article>
+      <article class="temo reveal d1"><div class="stars">★★★★★</div><p class="q">« Le ditakh, je ne connaissais pas. C'est devenu mon réflexe d'après-sport. Addictif. »</p><div class="who"><span class="av" style="background:#727F38">M</span><div><b>Marc L.</b><span>Lyon</span></div></div></article>
+      <article class="temo reveal d2"><div class="stars">★★★★★</div><p class="q">« Le packaging est sublime, le goût encore plus. Et ça soutient un projet culturel ! »</p><div class="who"><span class="av" style="background:#E0892F">F</span><div><b>Fatou N.</b><span>Bruxelles</span></div></div></article>
+    </div>
+    <div class="temo-vid reveal d3">
+      <div class="vid-reel">
+        <video class="scroll-vid" src="../input/v13.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="panel panel--cream sec layer" data-screen-label="Galerie">
+  <div class="wrap">
+    <div class="shead reveal"><h2>L'univers Kemeted</h2><p>Du marché à la cuisine moderne — un même fil rouge : la joie.</p></div>
+    <div class="gal-grid reveal">
+      <div class="cell c-a">
+        <video class="scroll-vid" src="../input/v14.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+      </div>
+      <div class="cell c-b">
+        <video class="scroll-vid" src="../input/v20.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+      </div>
+      <div class="cell c-c">
+        <video class="scroll-vid" src="../input/v21.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+      </div>
+      <div class="cell c-d">
+        <video class="scroll-vid" src="../input/v23.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+      </div>
+      <div class="cell c-e">
+        <img class="gal-img" src="../input/v26.jpg" alt="portrait" loading="lazy">
+      </div>
+      <div class="cell c-f">
+        <video class="scroll-vid" src="../input/v28.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEME -->
+<section class="panel panel--peach sec layer" id="ecosysteme" data-screen-label="Écosystème">
+  <div class="wrap">
+    <div class="shead reveal"><h2>L'écosystème Kemeted</h2><p>Saveur n'est qu'un pôle. L'association cultive la mémoire africaine sous toutes ses formes.</p></div>
+    <div class="eco-grid">
+      <a href="https://agent-69dbad2bc6dbb49077f922db--kemeted-museum.netlify.app/" target="_blank" rel="noopener" class="eco e1 reveal"><span class="tag">Pôle culture</span><div><h4>Kemeted Museum</h4><p>Un musée vivant des patrimoines africains.</p></div><span class="go">Visiter →</span></a>
+      <article class="eco e2 reveal d1"><span class="tag">Pôle savoir</span><div><h4>Kemeted Academy</h4><p>Ateliers, conférences et transmission.</p></div><span class="go">Découvrir →</span></article>
+      <article class="eco e3 reveal d2"><span class="tag">Pôle solidarité</span><div><h4>Kemeted Impact</h4><p>Agriculture locale et circuits courts.</p></div><span class="go">S'engager →</span></article>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="panel panel--bissap sec news layer" data-screen-label="Newsletter">
+  <div class="wrap">
+    <span class="kicker reveal" style="justify-content:center">Restons en contact</span>
+    <h2 class="reveal d1">Reçois nos nouvelles saveurs</h2>
+    <p class="reveal d1">Lancements, recettes et coulisses — une lettre, jamais de spam.</p>
+    <form id="news-form" class="reveal d2">
+      <input type="email" placeholder="Ton adresse e-mail" required aria-label="E-mail">
+      <button type="submit" class="btn">S'inscrire <span>→</span></button>
+    </form>
+    <div class="ok">Merci — bienvenue dans la bande ! 🎉</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot__top">
+    <div class="foot__brand"><img src="assets/logo.png" alt="Kemeted & Association"><p>Kemeted Saveur — pôle superfood de Kemeted &amp; Association. Bois vivant.</p></div>
+    <div class="foot__col"><h5>Boutique</h5><a href="#produits">Bissap</a><a href="#produits">Bissap Blanc</a><a href="#produits">Ditakh</a><a href="#produits">Bouye</a><a href="#gourmandise">Gourmandise</a></div>
+    <div class="foot__col"><h5>L'association</h5><a href="#histoire">Notre histoire</a><a href="#ecosysteme">Museum</a><a href="#ecosysteme">Academy</a><a href="#ecosysteme">Impact</a></div>
+    <div class="foot__col"><h5>Suivre</h5><a href="https://www.instagram.com/kemetedassociation/" target="_blank" rel="noopener">Instagram</a><a href="#">TikTok</a><a href="#">LinkedIn</a><a href="mailto:kemeted.association@gmail.com">Contact</a></div>
+  </div>
+  <div class="foot__bottom">
+    <span>© <span id="year">2026</span> Kemeted &amp; Association. Tous droits réservés.</span>
+    <span>Énergie naturelle, goût authentique.</span>
+  </div>
+</footer>
+
+<!-- SVG Filter — FrostedHover (traduit depuis le composant React) -->
+<svg id="svg-fx-defs" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none" aria-hidden="true">
+  <defs>
+    <filter id="frost-fx" primitiveUnits="userSpaceOnUse" x="0%" y="0%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feComponentTransfer result="SourceBackground" in="SourceGraphic">
+        <feFuncR type="discrete" tableValues="0 0.016 0.032 0.048 0.063 0.079 0.095 0.111 0.127 0.143 0.159 0.175 0.190 0.206 0.222 0.238 0.254 0.270 0.286 0.302 0.317 0.333 0.349 0.365 0.381 0.397 0.413 0.429 0.444 0.460 0.476 0.492 0.508 0.524 0.540 0.556 0.571 0.587 0.603 0.619 0.635 0.651 0.667 0.683 0.698 0.714 0.730 0.746 0.762 0.778 0.794 0.810 0.825 0.841 0.857 0.873 0.889 0.905 0.921 0.937 0.952 0.968 0.984 1"/>
+        <feFuncG type="discrete" tableValues="0 0.016 0.032 0.048 0.063 0.079 0.095 0.111 0.127 0.143 0.159 0.175 0.190 0.206 0.222 0.238 0.254 0.270 0.286 0.302 0.317 0.333 0.349 0.365 0.381 0.397 0.413 0.429 0.444 0.460 0.476 0.492 0.508 0.524 0.540 0.556 0.571 0.587 0.603 0.619 0.635 0.651 0.667 0.683 0.698 0.714 0.730 0.746 0.762 0.778 0.794 0.810 0.825 0.841 0.857 0.873 0.889 0.905 0.921 0.937 0.952 0.968 0.984 1"/>
+        <feFuncB type="discrete" tableValues="0 0.016 0.032 0.048 0.063 0.079 0.095 0.111 0.127 0.143 0.159 0.175 0.190 0.206 0.222 0.238 0.254 0.270 0.286 0.302 0.317 0.333 0.349 0.365 0.381 0.397 0.413 0.429 0.444 0.460 0.476 0.492 0.508 0.524 0.540 0.556 0.571 0.587 0.603 0.619 0.635 0.651 0.667 0.683 0.698 0.714 0.730 0.746 0.762 0.778 0.794 0.810 0.825 0.841 0.857 0.873 0.889 0.905 0.921 0.937 0.952 0.968 0.984 1"/>
+      </feComponentTransfer>
+      <feBlend result="blend-0" in="SourceBackground" in2="none"/>
+      <feGaussianBlur result="gaussian-blur-6" in="blend-0" stdDeviation="10"/>
+      <feTurbulence result="turbulence-0" baseFrequency="0.420" type="fractalNoise"/>
+      <feDisplacementMap result="displacement-map-0" in="gaussian-blur-6" in2="turbulence-0" scale="150" xChannelSelector="R" yChannelSelector="G"/>
+      <feComponentTransfer result="SourceMask" in="SourceGraphic">
+        <feFuncR type="discrete" tableValues="0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1"/>
+        <feFuncG type="discrete" tableValues="0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1"/>
+        <feFuncB type="discrete" tableValues="0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1 0 0.333 0.667 1"/>
+      </feComponentTransfer>
+      <feBlend result="SourceMask"/>
+      <feColorMatrix result="color-matrix-0" in="SourceMask" values="0.761905 0.190476 0.047619 0 0 0.761905 0.190476 0.047619 0 0 0.761905 0.190476 0.047619 0 0 0 0 0 1 0"/>
+      <feColorMatrix result="color-matrix-1" in="color-matrix-0" type="luminanceToAlpha"/>
+      <feGaussianBlur result="gaussian-blur-0" in="color-matrix-1" stdDeviation="0"/>
+      <feComposite result="composite-1" in="displacement-map-0" in2="gaussian-blur-0" operator="in"/>
+      <feMerge result="merge-0">
+        <feMergeNode in="blend-0"/>
+        <feMergeNode in="composite-1"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<script src="pop/pop-script.js"></script>
+
+
+<!-- ========= NEWSLETTER + EMAIL + PUSH ========= -->
+<script>
+(function() {
+  var WEB3FORMS_KEY = '22cc1c62-6f27-489b-9cfc-77c620f93988';
+
+  var form = document.getElementById('news-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var emailInput = form.querySelector('input[type="email"]');
+    var email = emailInput ? emailInput.value.trim() : '';
+    if (!email) return;
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var ok = document.querySelector('.ok');
+
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi…'; }
+
+    // 1 — Notification push navigateur
+    function showPush() {
+      try {
+        new Notification('Kemeted Saveur 🌿', {
+          body: "C'est fait ! Bienvenue dans la famille Kemeted. Tu vas recevoir nos actus et saveurs !",
+          icon: '/project/assets/logo.png'
+        });
+      } catch(err) {}
+    }
+    if ('Notification' in window) {
+      if (Notification.permission === 'granted') {
+        showPush();
+      } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission().then(function(p) { if (p === 'granted') showPush(); });
+      }
+    }
+
+    // 2 — Envoi email à kemeted.association@gmail.com via Web3Forms
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: 'Nouveau adhérent Kemeted Saveur — ' + email,
+        name: 'Inscription newsletter',
+        email: email,
+        message: 'Bonjour,\n\nUn nouveau adhérent vient de s\'inscrire à la newsletter Kemeted Saveur.\n\nAdresse email : ' + email + '\n\n--\nMessage de bienvenue à envoyer au nouvel adhérent :\n\n"Bienvenue dans la famille Kemeted Saveur !\nMerci de rejoindre notre communauté. Tu vas recevoir en avant-première nos nouvelles saveurs, recettes africaines et offres exclusives.\nBois vivant, bois Kemeted. 🌿"\n\nBonne journée,\nL\'équipe Kemeted Saveur'
+      })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      console.log('Web3Forms réponse:', data);
+      if (data.success) {
+        if (ok) ok.textContent = 'Merci — bienvenue dans la bande ! Email envoyé 🎉';
+        if (ok) ok.classList.add('show');
+        if (emailInput) emailInput.value = '';
+      } else {
+        if (ok) ok.textContent = 'Inscription enregistrée ! (vérifiez votre boîte mail Web3Forms)';
+        if (ok) ok.classList.add('show');
+        console.warn('Web3Forms erreur:', data);
+      }
+    })
+    .catch(function(err) {
+      console.error('Erreur réseau:', err);
+      if (ok) ok.textContent = 'Inscrit ! (connexion requise pour l\'email)';
+      if (ok) ok.classList.add('show');
+    })
+    .finally(function() {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = "S'inscrire <span>→</span>"; }
+    });
+  });
+})();
+</script>
+
+<!-- Tweaks -->
+<div id="tweak-root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="pop/pop-tweaks.jsx"></script>
+</body>
+</html>
