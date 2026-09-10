@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon panier — Kemeted Saveur</title>
+<link rel="stylesheet" href="pop/pop-styles.css">
+<script>window.KEMETED_ROOT = './';</script>
+</head>
+<body class="no-blobs reveal-off">
+
+<header class="nav">
+  <a class="nav__brand" href="index.html#hero"><img src="assets/logo.png" alt="Kemeted"><span>Kemeted</span></a>
+  <nav class="nav__links">
+    <a href="index.html#ingredients">Saveurs</a>
+    <a href="index.html#produits">Boutique</a>
+    <a href="compte.html">Mon compte</a>
+  </nav>
+  <a class="nav__cta" href="index.html#produits">Boutique 🛒</a>
+</header>
+
+<main class="account-page">
+  <h1>Mon panier</h1>
+
+  <div id="panier-banner"></div>
+
+  <div class="acct-card" id="panier-items"></div>
+
+  <div class="acct-card">
+    <div class="cart-total" style="font-size:24px"><span>Total</span><span id="panier-total-val">0,00 €</span></div>
+    <p class="cart-note" style="margin-top:8px">Les prix affichés tiennent compte de ton tarif (B2C ou B2B) si tu es connecté·e.</p>
+    <button class="btn" id="panier-checkout-btn" type="button" style="width:100%;justify-content:center;margin-top:18px">Passer commande →</button>
+    <a href="index.html#produits" style="display:block;text-align:center;font-size:13.5px;font-weight:700;opacity:.6;margin-top:14px">← Continuer mes achats</a>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot__top">
+    <div class="foot__brand"><img src="assets/logo.png" alt="Kemeted & Association"><p>Kemeted Saveur — pôle superfood de Kemeted &amp; Association. Bois vivant.</p></div>
+    <div class="foot__col"><h5>Boutique</h5><a href="index.html#produits">Bissap</a><a href="index.html#produits">Bissap Blanc</a><a href="index.html#produits">Ditakh</a><a href="index.html#produits">Bouye</a><a href="index.html#gourmandise">Gourmandise</a></div>
+    <div class="foot__col"><h5>L'association</h5><a href="index.html#histoire">Notre histoire</a><a href="index.html#ecosysteme">Museum</a><a href="index.html#ecosysteme">Academy</a><a href="index.html#ecosysteme">Impact</a></div>
+    <div class="foot__col"><h5>Suivre</h5><a href="https://www.instagram.com/kemetedassociation/" target="_blank" rel="noopener">📸 Instagram</a><a href="#">TikTok</a><a href="#">LinkedIn</a><a href="mailto:kemeted.association@gmail.com">Contact</a></div>
+    <div class="foot__col"><h5>Légal</h5><a href="mentions-legales.html">Mentions légales</a><a href="politique-de-confidentialite.html">Confidentialité &amp; RGPD</a><a href="politique-de-remboursement.html">Remboursement</a><a href="#" id="foot-cookie-link">Gérer mes cookies</a></div>
+  </div>
+  <div class="foot__bottom">
+    <span>© 2025–<span id="year">2026</span> Kemeted &amp; Association. Tous droits réservés.</span>
+    <span>Énergie naturelle, goût authentique.</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="pop/pop-account.js"></script>
+<script src="pop/pop-products.js"></script>
+<script src="pop/pop-script.js"></script>
+<script src="pop/pop-cart.js"></script>
+<script src="pop/pop-widgets.js"></script>
+<script>
+  var fcl = document.getElementById('foot-cookie-link');
+  if (fcl) fcl.addEventListener('click', function(e){ e.preventDefault(); window.kemetedConsent && window.kemetedConsent.openSettings(); });
+
+  document.getElementById('panier-checkout-btn').addEventListener('click', function(){ window.kemetedCart.checkout(); });
+
+  (function(){
+    var params = new URLSearchParams(location.search);
+    var banner = document.getElementById('panier-banner');
+    if (params.get('success') === '1') {
+      banner.innerHTML = '<div class="auth-msg show ok" style="margin-bottom:22px">🎉 Merci pour ta commande ! Un email de confirmation Stripe arrive, et tes points fidélité seront crédités automatiquement si tu étais connecté·e.</div>';
+    } else if (params.get('canceled') === '1') {
+      banner.innerHTML = '<div class="auth-msg show err" style="margin-bottom:22px">Paiement annulé — ton panier est toujours là, tu peux réessayer quand tu veux.</div>';
+    }
+  })();
+</script>
+</body>
+</html>

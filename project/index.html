@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kemeted Saveur — Bois vivant</title>
 <link rel="stylesheet" href="pop/pop-styles.css">
+<script>window.KEMETED_ROOT = './';</script>
 </head>
 <body>
 
@@ -18,8 +19,9 @@
     <a href="#produits">Boutique</a>
     <a href="#gourmandise">Gourmandise</a>
     <a href="#histoire">Histoire</a>
+    <a href="compte.html">Mon compte</a>
   </nav>
-  <a class="nav__cta" href="#produits">Commander 🛒</a>
+  <a class="nav__cta" href="panier.html" data-cart-trigger>Panier 🛒</a>
 </header>
 
 <!-- HERO -->
@@ -50,7 +52,7 @@
     <p class="big reveal d1">Des plantes d'Afrique qui nourrissent depuis des siècles. On les met en bouteille — <em>sans sucre ajouté</em>, juste l'énergie, le goût et la joie.</p>
   </div>
   <div class="manifeste-vid reveal d3">
-    <video class="scroll-vid" src="../input/v7.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+    <video class="scroll-vid" data-src="../input/v7.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
   </div>
 </section>
 
@@ -88,7 +90,7 @@
       </article>
     </div>
     <div class="ing-vid reveal d1">
-      <video class="loop-vid" src="../input/v11.mp4" muted playsinline preload="auto" loop disablepictureinpicture></video>
+      <video class="loop-vid" data-src="../input/v11.mp4" muted playsinline preload="auto" loop disablepictureinpicture></video>
     </div>
   </div>
 </section>
@@ -106,39 +108,47 @@
     <div class="prod-grid">
       <article class="prod reveal" data-pid="bissap"
         data-bg="#FAD9DE" data-img="assets/splash-bissap.png">
-        <div class="disc" style="background:#FAD9DE"><div class="bottle" style="background:linear-gradient(180deg,#9b2942,#7A1F38)"></div></div>
-        <div class="cat">Hibiscus</div><h4>Bissap</h4><div class="price">4,50 €</div>
-        <a href="https://buy.stripe.com/00wfZ9dJU2QX4lSaxG8N208" target="_blank" rel="noopener" class="add" aria-label="Commander le Bissap Rouge">+</a>
+        <a class="prod__link" href="produit/bissap/" aria-label="Voir le Bissap">
+          <div class="disc" style="background:#FAD9DE"><div class="bottle" style="background:linear-gradient(180deg,#9b2942,#7A1F38)"></div></div>
+          <div class="cat">Hibiscus</div><h4>Bissap</h4><div class="price">4,50 €</div>
+        </a>
+        <button type="button" class="add" aria-label="Ajouter le Bissap au panier">+</button>
       </article>
       <article class="prod reveal d1" data-pid="blanc"
         data-bg="#FBE9C2" data-img="assets/splash-bissap.png" data-filter="hue-rotate(28deg) saturate(0.75)">
-        <div class="disc" style="background:#FBE9C2"><div class="bottle" style="background:linear-gradient(180deg,#eaa356,#E0892F)"></div></div>
-        <div class="cat">Hibiscus blanc</div><h4>Bissap Blanc</h4><div class="price">4,50 €</div>
-        <a href="https://buy.stripe.com/7sY4grgW6bnt9Gc0X68N209" target="_blank" rel="noopener" class="add" aria-label="Commander le Bissap Blanc">+</a>
+        <a class="prod__link" href="produit/blanc/" aria-label="Voir le Bissap Blanc">
+          <div class="disc" style="background:#FBE9C2"><div class="bottle" style="background:linear-gradient(180deg,#eaa356,#E0892F)"></div></div>
+          <div class="cat">Hibiscus blanc</div><h4>Bissap Blanc</h4><div class="price">4,50 €</div>
+        </a>
+        <button type="button" class="add" aria-label="Ajouter le Bissap Blanc au panier">+</button>
       </article>
       <article class="prod reveal d2" data-pid="ditakh"
-        data-bg="#D6EEDF" data-img="assets/bottle-ditakh.png">
-        <div class="disc" style="background:#D6EEDF"><div class="bottle" style="background:linear-gradient(180deg,#8b9748,#727F38)"></div></div>
-        <div class="cat">Detarium</div><h4>Ditakh</h4><div class="price">4,90 €</div>
-        <a href="https://buy.stripe.com/6oU00bfS2bntdWs21a8N20a" target="_blank" rel="noopener" class="add" aria-label="Commander le Ditakh">+</a>
+        data-bg="#D6EEDF" data-img="assets/ditakh.jpg">
+        <a class="prod__link" href="produit/ditakh/" aria-label="Voir le Ditakh">
+          <div class="disc" style="background:#D6EEDF"><div class="bottle" style="background:linear-gradient(180deg,#8b9748,#727F38)"></div></div>
+          <div class="cat">Detarium</div><h4>Ditakh</h4><div class="price">4,90 €</div>
+        </a>
+        <button type="button" class="add" aria-label="Ajouter le Ditakh au panier">+</button>
       </article>
       <article class="prod reveal d3" data-pid="bouye"
-        data-bg="#EFE3CF" data-img="assets/bottle-ditakh.png" data-filter="sepia(0.45) hue-rotate(14deg) brightness(1.1)">
-        <div class="disc" style="background:#EFE3CF"><div class="bottle" style="background:linear-gradient(180deg,#d0aa78,#B6905C)"></div></div>
-        <div class="cat">Baobab</div><h4>Bouye</h4><div class="price">4,90 €</div>
-        <a href="https://buy.stripe.com/cNi28j21c1MT19G9tC8N20b" target="_blank" rel="noopener" class="add" aria-label="Commander le Bouye">+</a>
+        data-bg="#EFE3CF" data-img="assets/bouye.jpg">
+        <a class="prod__link" href="produit/bouye/" aria-label="Voir le Bouye">
+          <div class="disc" style="background:#EFE3CF"><div class="bottle" style="background:linear-gradient(180deg,#d0aa78,#B6905C)"></div></div>
+          <div class="cat">Baobab</div><h4>Bouye</h4><div class="price">4,90 €</div>
+        </a>
+        <button type="button" class="add" aria-label="Ajouter le Bouye au panier">+</button>
       </article>
     </div>
     <div class="coffret reveal">
       <div class="ph">
-        <video class="scroll-vid" src="../input/v9.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <video class="scroll-vid" data-src="../input/v9.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
         <img src="assets/pyramid.png" alt="Coffret découverte Kemeted">
       </div>
       <div class="txt">
-        <span class="pill">Coffret découverte</span>
-        <h3>Les quatre, d'un coup !</h3>
-        <p>Le coffret signature réunit nos quatre jus dans leurs bouteilles de verre. La meilleure façon de trouver ta saveur — et de l'offrir.</p>
-        <a href="#" class="btn">Commander le coffret <span>→</span></a>
+        <span class="pill">🚀 Édition de lancement — 200 exemplaires</span>
+        <h3>Le Coffret Découverte, à 10 €</h3>
+        <p>Pour le lancement de Kemeted Saveur : 3 jus signature (Bissap, Bissap Blanc, Ditakh) + 1 pass pour la tombola Kemeted &amp; Association. Réservé aux 200 premiers clients.</p>
+        <a href="produit/coffret/" class="btn">Découvrir le coffret <span>→</span></a>
       </div>
     </div>
   </div>
@@ -147,7 +157,7 @@
 <!-- VIDEO PIN v8 — scroll bloque jusqu'à la fin -->
 <section class="vid-pin" id="pin-v8">
   <div class="vid-pin__inner">
-    <video src="../input/v8.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
+    <video data-src="../input/v8.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
     <div class="vid-pin__overlay">
       <span class="vid-pin__label">L'énergie à l'état pur</span>
       <div class="vid-pin__progress-wrap"><div class="vid-pin__bar"></div></div>
@@ -164,22 +174,31 @@
     </div>
     <div class="gour-grid">
       <article class="gour tall reveal" data-gour-idx="0" data-pid="donut">
-        <div class="ph">
-          <video class="gour-vid" src="../input/v12.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
-        </div>
-        <div class="meta"><h4>Donuts fourrés à la gelée de bissap</h4><p>Brioche moelleuse, cœur coulant d'hibiscus rouge.</p></div>
+        <a class="gour__link" href="produit/donut/" aria-label="Voir les Donuts bissap">
+          <div class="ph">
+            <video class="gour-vid" data-src="../input/v12.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+          </div>
+          <div class="meta"><h4>Donuts fourrés à la gelée de bissap</h4><p>Brioche moelleuse, cœur coulant d'hibiscus rouge. — 3,90 €</p></div>
+        </a>
+        <button type="button" class="gour-add-btn" data-gour-pid="donut">Ajouter au panier +</button>
       </article>
       <article class="gour reveal d1" data-gour-idx="1" data-pid="bonbon">
-        <div class="ph">
-          <video class="gour-vid" src="../input/v10.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
-        </div>
-        <div class="meta"><h4>Bonbons gélatine cœurs bouye</h4><p>Tendres, acidulés, au baobab.</p></div>
+        <a class="gour__link" href="produit/bonbon/" aria-label="Voir les Bonbons bouye">
+          <div class="ph">
+            <video class="gour-vid" data-src="../input/v10.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+          </div>
+          <div class="meta"><h4>Bonbons gélatine cœurs bouye</h4><p>Tendres, acidulés, au baobab. — 4,90 €</p></div>
+        </a>
+        <button type="button" class="gour-add-btn" data-gour-pid="bonbon">Ajouter au panier +</button>
       </article>
       <article class="gour reveal d2" data-gour-idx="2" data-pid="pate">
-        <div class="ph">
-          <video class="gour-vid" src="../input/v8.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
-        </div>
-        <div class="meta"><h4>Pâtes de fruits ditakh</h4><p>Le vert acidulé, en bouchée.</p></div>
+        <a class="gour__link" href="produit/pate/" aria-label="Voir les Pâtes de fruits ditakh">
+          <div class="ph">
+            <video class="gour-vid" data-src="../input/v8.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+          </div>
+          <div class="meta"><h4>Pâtes de fruits ditakh</h4><p>Le vert acidulé, en bouchée. — 4,50 €</p></div>
+        </a>
+        <button type="button" class="gour-add-btn" data-gour-pid="pate">Ajouter au panier +</button>
       </article>
     </div>
   </div>
@@ -188,7 +207,7 @@
 <!-- VIDEO PIN v14 — juste avant Notre Histoire -->
 <section class="vid-pin" id="pin-v14">
   <div class="vid-pin__inner">
-    <video src="../input/v14.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
+    <video data-src="../input/v14.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
     <div class="vid-pin__overlay">
       <span class="vid-pin__label">Notre histoire</span>
       <div class="vid-pin__progress-wrap"><div class="vid-pin__bar"></div></div>
@@ -201,8 +220,8 @@
   <div class="wrap">
     <div class="hist-grid">
       <div class="hist-media reveal">
-        <video class="scroll-vid" src="../input/v14.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
-        <img class="hist-bottle" data-parallax="0.05" src="assets/bottle-ditakh.png" alt="Bouteille de ditakh">
+        <video class="scroll-vid" data-src="../input/v14.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <img class="hist-bottle" data-parallax="0.05" src="assets/ditakh.jpg" alt="Bouteille de ditakh">
       </div>
       <div class="hist-copy reveal d1">
         <span class="kicker">Notre histoire</span>
@@ -234,7 +253,7 @@
     </div>
   </div>
   <div class="bf-vid-wrap reveal d4">
-    <video class="scroll-vid" src="../input/v12.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+    <video class="scroll-vid" data-src="../input/v12.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
   </div>
 </section>
 
@@ -249,7 +268,7 @@
     </div>
     <div class="temo-vid reveal d3">
       <div class="vid-reel">
-        <video class="scroll-vid" src="../input/v13.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <video class="scroll-vid" data-src="../input/v13.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
       </div>
     </div>
   </div>
@@ -261,22 +280,22 @@
     <div class="shead reveal"><h2>L'univers Kemeted</h2><p>Du marché à la cuisine moderne — un même fil rouge : la joie.</p></div>
     <div class="gal-grid reveal">
       <div class="cell c-a">
-        <video class="scroll-vid" src="../input/v14.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <video class="scroll-vid" data-src="../input/v14.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
       </div>
       <div class="cell c-b">
-        <video class="scroll-vid" src="../input/v20.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <video class="scroll-vid" data-src="../input/v20.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
       </div>
       <div class="cell c-c">
-        <video class="scroll-vid" src="../input/v21.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <video class="scroll-vid" data-src="../input/v21.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
       </div>
       <div class="cell c-d">
-        <video class="scroll-vid" src="../input/v23.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <video class="scroll-vid" data-src="../input/v23.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
       </div>
       <div class="cell c-e">
         <img class="gal-img" src="../input/v26.jpg" alt="portrait" loading="lazy">
       </div>
       <div class="cell c-f">
-        <video class="scroll-vid" src="../input/v28.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
+        <video class="scroll-vid" data-src="../input/v28.mp4" muted playsinline preload="metadata" disablepictureinpicture></video>
       </div>
     </div>
   </div>
@@ -314,10 +333,11 @@
     <div class="foot__brand"><img src="assets/logo.png" alt="Kemeted & Association"><p>Kemeted Saveur — pôle superfood de Kemeted &amp; Association. Bois vivant.</p></div>
     <div class="foot__col"><h5>Boutique</h5><a href="#produits">Bissap</a><a href="#produits">Bissap Blanc</a><a href="#produits">Ditakh</a><a href="#produits">Bouye</a><a href="#gourmandise">Gourmandise</a></div>
     <div class="foot__col"><h5>L'association</h5><a href="#histoire">Notre histoire</a><a href="#ecosysteme">Museum</a><a href="#ecosysteme">Academy</a><a href="#ecosysteme">Impact</a></div>
-    <div class="foot__col"><h5>Suivre</h5><a href="https://www.instagram.com/kemetedassociation/" target="_blank" rel="noopener">Instagram</a><a href="#">TikTok</a><a href="#">LinkedIn</a><a href="mailto:kemeted.association@gmail.com">Contact</a></div>
+    <div class="foot__col"><h5>Suivre</h5><a href="https://www.instagram.com/kemetedassociation/" target="_blank" rel="noopener">📸 Instagram</a><a href="#">TikTok</a><a href="#">LinkedIn</a><a href="mailto:kemeted.association@gmail.com">Contact</a></div>
+    <div class="foot__col"><h5>Légal</h5><a href="mentions-legales.html">Mentions légales</a><a href="politique-de-confidentialite.html">Confidentialité &amp; RGPD</a><a href="politique-de-remboursement.html">Remboursement</a><a href="#" id="foot-cookie-link">Gérer mes cookies</a></div>
   </div>
   <div class="foot__bottom">
-    <span>© <span id="year">2026</span> Kemeted &amp; Association. Tous droits réservés.</span>
+    <span>© 2025–<span id="year">2026</span> Kemeted &amp; Association. Tous droits réservés.</span>
     <span>Énergie naturelle, goût authentique.</span>
   </div>
 </footer>
@@ -353,7 +373,16 @@
   </defs>
 </svg>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="pop/pop-account.js"></script>
+<script src="pop/pop-products.js"></script>
 <script src="pop/pop-script.js"></script>
+<script src="pop/pop-cart.js"></script>
+<script src="pop/pop-widgets.js"></script>
+<script>
+  var fcl = document.getElementById('foot-cookie-link');
+  if (fcl) fcl.addEventListener('click', function(e){ e.preventDefault(); window.kemetedConsent && window.kemetedConsent.openSettings(); });
+</script>
 
 
 <!-- ========= NEWSLETTER + EMAIL + PUSH ========= -->

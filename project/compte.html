@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon compte — Kemeted Saveur</title>
+<link rel="stylesheet" href="pop/pop-styles.css">
+<script>window.KEMETED_ROOT = './';</script>
+</head>
+<body class="no-blobs reveal-off">
+
+<header class="nav">
+  <a class="nav__brand" href="index.html#hero"><img src="assets/logo.png" alt="Kemeted"><span>Kemeted</span></a>
+  <nav class="nav__links">
+    <a href="index.html#ingredients">Saveurs</a>
+    <a href="index.html#produits">Boutique</a>
+    <a href="index.html#histoire">Histoire</a>
+  </nav>
+  <a class="nav__cta" href="panier.html" data-cart-trigger>Panier 🛒</a>
+</header>
+
+<main class="account-page">
+  <h1>Mon compte</h1>
+
+  <!-- ===== AUTH (visible si déconnecté) ===== -->
+  <div id="auth-block">
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login" type="button">Connexion</button>
+      <button class="auth-tab" data-tab="signup" type="button">Créer un compte</button>
+    </div>
+
+    <form class="auth-card" id="login-form">
+      <div class="auth-field"><label for="login-email">Email</label><input type="email" id="login-email" required autocomplete="email"></div>
+      <div class="auth-field"><label for="login-pass">Mot de passe</label><input type="password" id="login-pass" required autocomplete="current-password"></div>
+      <button class="btn auth-submit" type="submit">Se connecter</button>
+      <div class="auth-msg" id="login-msg"></div>
+    </form>
+
+    <form class="auth-card" id="signup-form" hidden>
+      <div class="auth-field"><label for="signup-email">Email</label><input type="email" id="signup-email" required autocomplete="email"></div>
+      <div class="auth-field"><label for="signup-pass">Mot de passe</label><input type="password" id="signup-pass" required minlength="6" autocomplete="new-password"></div>
+      <button class="btn auth-submit" type="submit">Créer mon compte</button>
+      <div class="auth-msg" id="signup-msg"></div>
+      <p style="font-size:12.5px;font-weight:600;opacity:.55;margin-top:14px">
+        En créant un compte, tu acceptes notre <a href="politique-de-confidentialite.html">politique de confidentialité</a>.
+      </p>
+    </form>
+  </div>
+
+  <!-- ===== DASHBOARD (visible si connecté) ===== -->
+  <div id="dash-block" hidden>
+    <div class="acct-card">
+      <div class="acct-head">
+        <div>
+          <div class="acct-email" id="acct-email"></div>
+          <span class="tier-badge" id="acct-tier">B2C</span>
+        </div>
+        <button class="logout-link" id="logout-btn" type="button">Se déconnecter</button>
+      </div>
+    </div>
+
+    <div class="acct-card points-card">
+      <div class="points-num" id="points-num">0</div>
+      <div class="points-label">points fidélité</div>
+      <p class="points-hint">1 point gagné par euro dépensé sur les commandes passées connecté·e à ton compte.</p>
+    </div>
+
+    <div class="acct-card">
+      <h3 style="font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--bissap);margin-bottom:14px">Historique de commandes</h3>
+      <div id="orders-list"><div class="orders-empty">Chargement…</div></div>
+    </div>
+
+    <div class="acct-card b2b-box" id="b2b-box"></div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot__top">
+    <div class="foot__brand"><img src="assets/logo.png" alt="Kemeted & Association"><p>Kemeted Saveur — pôle superfood de Kemeted &amp; Association. Bois vivant.</p></div>
+    <div class="foot__col"><h5>Boutique</h5><a href="index.html#produits">Bissap</a><a href="index.html#produits">Bissap Blanc</a><a href="index.html#produits">Ditakh</a><a href="index.html#produits">Bouye</a><a href="index.html#gourmandise">Gourmandise</a></div>
+    <div class="foot__col"><h5>L'association</h5><a href="index.html#histoire">Notre histoire</a><a href="index.html#ecosysteme">Museum</a><a href="index.html#ecosysteme">Academy</a><a href="index.html#ecosysteme">Impact</a></div>
+    <div class="foot__col"><h5>Suivre</h5><a href="https://www.instagram.com/kemetedassociation/" target="_blank" rel="noopener">📸 Instagram</a><a href="#">TikTok</a><a href="#">LinkedIn</a><a href="mailto:kemeted.association@gmail.com">Contact</a></div>
+    <div class="foot__col"><h5>Légal</h5><a href="mentions-legales.html">Mentions légales</a><a href="politique-de-confidentialite.html">Confidentialité &amp; RGPD</a><a href="politique-de-remboursement.html">Remboursement</a><a href="#" id="foot-cookie-link">Gérer mes cookies</a></div>
+  </div>
+  <div class="foot__bottom">
+    <span>© 2025–<span id="year">2026</span> Kemeted &amp; Association. Tous droits réservés.</span>
+    <span>Énergie naturelle, goût authentique.</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="pop/pop-account.js"></script>
+<script src="pop/pop-products.js"></script>
+<script src="pop/pop-script.js"></script>
+<script src="pop/pop-cart.js"></script>
+<script src="pop/pop-widgets.js"></script>
+<script>
+  var fcl = document.getElementById('foot-cookie-link');
+  if (fcl) fcl.addEventListener('click', function(e){ e.preventDefault(); window.kemetedConsent && window.kemetedConsent.openSettings(); });
+</script>
+<script>
+(function(){
+  'use strict';
+  var auth = window.kemetedAuth;
+
+  var authBlock = document.getElementById('auth-block');
+  var dashBlock = document.getElementById('dash-block');
+  var tabs = document.querySelectorAll('.auth-tab');
+  var loginForm = document.getElementById('login-form');
+  var signupForm = document.getElementById('signup-form');
+
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      var isLogin = t.dataset.tab === 'login';
+      loginForm.hidden = !isLogin;
+      signupForm.hidden = isLogin;
+    });
+  });
+
+  function showMsg(el, text, ok){
+    el.textContent = text;
+    el.className = 'auth-msg show ' + (ok ? 'ok' : 'err');
+  }
+
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = document.getElementById('login-msg');
+    auth.signIn(document.getElementById('login-email').value, document.getElementById('login-pass').value)
+      .then(function(r){
+        if (r.error) return showMsg(msg, r.error.message, false);
+        renderDash();
+      });
+  });
+
+  signupForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = document.getElementById('signup-msg');
+    auth.signUp(document.getElementById('signup-email').value, document.getElementById('signup-pass').value)
+      .then(function(r){
+        if (r.error) return showMsg(msg, r.error.message, false);
+        if (r.data.session) return renderDash();
+        showMsg(msg, 'Compte créé ! Si la confirmation par email est activée, vérifie ta boîte de réception avant de te connecter.', true);
+      });
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', function(){
+    auth.signOut().then(function(){ location.reload(); });
+  });
+
+  function renderB2B(profile){
+    var box = document.getElementById('b2b-box');
+    if (profile.tier === 'b2b') {
+      var items = Object.keys(window.KEMETED_PRODUCTS).map(function(pid){
+        var p = window.KEMETED_PRODUCTS[pid];
+        var pro = (p.priceB2B/100).toFixed(2).replace('.', ',') + ' €';
+        var std = (p.price/100).toFixed(2).replace('.', ',') + ' €';
+        return '<div class="b2b-item">' + p.name + ' — <b>' + pro + '</b> <span style="opacity:.5;text-decoration:line-through">' + std + '</span></div>';
+      }).join('');
+      box.innerHTML = '<h3 style="font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--bissap);margin-bottom:10px">Tarifs professionnels</h3>' +
+        '<p>Ton compte est validé B2B — ton tarif réduit s\'applique automatiquement dès que tu ajoutes ces jus au panier, connecté·e.</p>' +
+        '<div class="b2b-unlocked-grid">' + items + '</div>' +
+        '<a class="btn" style="margin-top:16px" href="index.html#produits">Aller à la boutique →</a>';
+    } else if (profile.b2b_requested) {
+      box.innerHTML = '<h3 style="font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--bissap);margin-bottom:10px">Compte professionnel</h3>' +
+        '<div class="b2b-pending">Ta demande de tarif pro est en cours de validation — on revient vers toi rapidement.</div>';
+    } else {
+      box.innerHTML = '<h3 style="font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--bissap);margin-bottom:10px">Tu es un professionnel ?</h3>' +
+        '<p>Restaurant, épicerie, revendeur — demande l\'accès aux tarifs professionnels.</p>' +
+        '<button class="btn" id="b2b-request-btn" type="button">Demander le tarif pro</button>';
+      document.getElementById('b2b-request-btn') && box.querySelector('#b2b-request-btn').addEventListener('click', function(){
+        var company = prompt('Nom de ton entreprise / activité ?');
+        if (!company) return;
+        auth.requestB2B(company).then(function(){ renderDash(); });
+      });
+    }
+  }
+
+  function renderDash(){
+    auth.getSession().then(function(session){
+      if (!session) { authBlock.hidden = false; dashBlock.hidden = true; return; }
+      authBlock.hidden = true; dashBlock.hidden = false;
+      document.getElementById('acct-email').textContent = session.user.email;
+
+      auth.getProfile(session.user.id).then(function(profile){
+        if (!profile) return;
+        var tierEl = document.getElementById('acct-tier');
+        tierEl.textContent = profile.tier === 'b2b' ? 'B2B — Pro' : 'B2C';
+        tierEl.classList.toggle('b2b', profile.tier === 'b2b');
+        document.getElementById('points-num').textContent = profile.points_balance;
+        renderB2B(profile);
+      });
+
+      auth.getOrders(session.user.id).then(function(orders){
+        var wrap = document.getElementById('orders-list');
+        if (!orders.length) { wrap.innerHTML = '<div class="orders-empty">Aucune commande pour l\'instant.</div>'; return; }
+        wrap.innerHTML = orders.map(function(o){
+          var d = new Date(o.created_at).toLocaleDateString('fr-FR');
+          var amount = (o.amount_total/100).toFixed(2) + ' €';
+          return '<div class="order-row"><span>' + d + ' — ' + amount + '</span><span class="pts">+' + o.points_earned + ' pts</span></div>';
+        }).join('');
+      });
+    });
+  }
+
+  renderDash();
+})();
+</script>
+</body>
+</html>

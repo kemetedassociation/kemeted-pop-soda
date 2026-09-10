@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffret Découverte — Kemeted Saveur</title>
+<link rel="stylesheet" href="../../pop/pop-styles.css">
+<script>window.KEMETED_ROOT = '../../';</script>
+</head>
+<body class="no-blobs reveal-off">
+
+<header class="nav">
+  <a class="nav__brand" href="../../index.html#hero"><img src="../../assets/logo.png" alt="Kemeted"><span>Kemeted</span></a>
+  <nav class="nav__links">
+    <a href="../../index.html#ingredients">Saveurs</a>
+    <a href="../../index.html#produits">Boutique</a>
+    <a href="../../compte.html">Mon compte</a>
+  </nav>
+  <a class="nav__cta" href="../../panier.html" data-cart-trigger>Panier 🛒</a>
+</header>
+
+<main class="pp">
+  <div class="pp-crumb"><a href="../../index.html#produits">Boutique</a> / Coffret Découverte</div>
+  <div class="pp-grid">
+    <div class="pp-media" style="background:#FBEDC6">
+      <img src="../../assets/pyramid.png" alt="Coffret Découverte Kemeted">
+    </div>
+    <div>
+      <div class="pp-cat">Édition de lancement</div>
+      <h1 class="pp-title">Coffret Découverte</h1>
+      <p class="pp-tagline">3 jus signature + 1 pass tombola Kemeted — édition limitée aux 200 premiers clients.</p>
+      <div class="pp-price">10,00 €</div>
+      <div class="pp-tags"><span>Édition limitée</span><span id="pp-stock">— restants sur 200</span></div>
+
+      <div class="pp-qty">
+        <div class="pp-qty-ctrl">
+          <button type="button" id="pp-dec" aria-label="Diminuer">−</button>
+          <span class="pp-qty-val" id="pp-qty">1</span>
+          <button type="button" id="pp-inc" aria-label="Augmenter">+</button>
+        </div>
+        <button class="btn" id="pp-add">Ajouter au panier <span>→</span></button>
+      </div>
+      <div class="pp-added" id="pp-added">Ajouté au panier ✓</div>
+
+      <p class="pp-desc">Pour le lancement de Kemeted Saveur, on a préparé un coffret découverte à prix cassé, réservé aux 200 premiers clients. À l'intérieur : trois de nos jus signature, et un pass pour participer à la tombola organisée par Kemeted &amp; Association.</p>
+
+      <ul class="pp-benefits">
+        <li>3 bouteilles : Bissap, Bissap Blanc, Ditakh</li>
+        <li>1 pass tombola Kemeted inclus</li>
+        <li>Prix de lancement, sans engagement</li>
+      </ul>
+
+      <div class="callout" style="margin-top:8px">
+        <p style="margin-bottom:8px"><b>🎟️ La tombola Kemeted &amp; Association</b></p>
+        <p style="margin-bottom:8px">À gagner : des œuvres bisontines, ou une place dans l'un de nos ateliers (musique, peinture, chant, dégustation…).</p>
+        <p style="margin:0"><b>Pour participer :</b> reposte notre dernière vidéo Instagram et TikTok en ajoutant le hashtag <b>#kemeted</b>.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot__top">
+    <div class="foot__brand"><img src="../../assets/logo.png" alt="Kemeted & Association"><p>Kemeted Saveur — pôle superfood de Kemeted &amp; Association. Bois vivant.</p></div>
+    <div class="foot__col"><h5>Boutique</h5><a href="../bissap/">Bissap</a><a href="../blanc/">Bissap Blanc</a><a href="../ditakh/">Ditakh</a><a href="../bouye/">Bouye</a></div>
+    <div class="foot__col"><h5>L'association</h5><a href="../../index.html#histoire">Notre histoire</a><a href="../../index.html#ecosysteme">Museum</a><a href="../../index.html#ecosysteme">Academy</a><a href="../../index.html#ecosysteme">Impact</a></div>
+    <div class="foot__col"><h5>Suivre</h5><a href="https://www.instagram.com/kemetedassociation/" target="_blank" rel="noopener">📸 Instagram</a><a href="#">TikTok</a><a href="#">LinkedIn</a><a href="mailto:kemeted.association@gmail.com">Contact</a></div>
+    <div class="foot__col"><h5>Légal</h5><a href="../../mentions-legales.html">Mentions légales</a><a href="../../politique-de-confidentialite.html">Confidentialité &amp; RGPD</a><a href="../../politique-de-remboursement.html">Remboursement</a><a href="#" id="foot-cookie-link">Gérer mes cookies</a></div>
+  </div>
+  <div class="foot__bottom">
+    <span>© 2025–<span id="year">2026</span> Kemeted &amp; Association. Tous droits réservés.</span>
+    <span>Énergie naturelle, goût authentique.</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../../pop/pop-account.js"></script>
+<script src="../../pop/pop-products.js"></script>
+<script src="../../pop/pop-script.js"></script>
+<script src="../../pop/pop-cart.js"></script>
+<script src="../../pop/pop-widgets.js"></script>
+<script>
+  var fcl = document.getElementById('foot-cookie-link');
+  if (fcl) fcl.addEventListener('click', function(e){ e.preventDefault(); window.kemetedConsent && window.kemetedConsent.openSettings(); });
+
+  (function(){
+    var PID = 'coffret';
+    var qty = 1;
+    var qtyEl = document.getElementById('pp-qty');
+    var addBtn = document.getElementById('pp-add');
+    document.getElementById('pp-inc').addEventListener('click', function(){ qty = Math.min(50, qty+1); qtyEl.textContent = qty; });
+    document.getElementById('pp-dec').addEventListener('click', function(){ qty = Math.max(1, qty-1); qtyEl.textContent = qty; });
+    addBtn.addEventListener('click', function(){
+      window.kemetedCart.add(PID, qty);
+      var added = document.getElementById('pp-added');
+      added.classList.add('show');
+      setTimeout(function(){ added.classList.remove('show'); }, 2500);
+    });
+
+    window.kemetedAuth.client.from('promo_stock').select('remaining,total').eq('id','coffret-decouverte').maybeSingle()
+      .then(function(res){
+        var stockEl = document.getElementById('pp-stock');
+        if (!res.data) { stockEl.textContent = '200 exemplaires'; return; }
+        var remaining = res.data.remaining, total = res.data.total;
+        stockEl.textContent = remaining + ' restants sur ' + total;
+        if (remaining <= 0) {
+          stockEl.textContent = 'Épuisé';
+          addBtn.disabled = true;
+          addBtn.textContent = 'Coffret épuisé';
+        } else if (remaining <= 20) {
+          stockEl.style.background = '#FAD9DE';
+        }
+      });
+  })();
+</script>
+</body>
+</html>

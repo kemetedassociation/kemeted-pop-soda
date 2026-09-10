@@ -11,31 +11,69 @@
   const navScroll = ()=> nav.classList.toggle('scrolled', scrollY>40);
   addEventListener('scroll', navScroll, {passive:true}); navScroll();
 
-  /* reveals — pop in, lock final state so throttled transitions never hide content */
+  /* reveals — continuous, scroll-linked entrance instead of a one-shot CSS
+     transition: opacity/translate track scroll progress directly, so the
+     pace of the reveal follows the pace of the scroll (slow scroll = slow
+     reveal). Locks its final inline state once fully in, like before, so a
+     throttled frame never leaves an element half-hidden. */
   const reveals = [...document.querySelectorAll('.reveal')];
-  function revealEl(el){
-    el.classList.add('in');
-    setTimeout(()=>{ el.style.transition='none'; el.style.opacity='1'; el.style.transform='none'; }, 900);
-  }
+  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+  const revealDelayPx = el => el.classList.contains('d4') ? 150
+    : el.classList.contains('d3') ? 110
+    : el.classList.contains('d2') ? 75
+    : el.classList.contains('d1') ? 40 : 0;
+  reveals.forEach(el => { el.style.transition = 'none'; });
   function checkReveals(){
-    const trigger = innerHeight*0.9;
+    const start = innerHeight*0.92, end = innerHeight*0.5;
     for(const el of reveals){
       if(el.dataset.shown) continue;
-      if(el.getBoundingClientRect().top < trigger){ el.dataset.shown='1'; revealEl(el); }
+      const top = el.getBoundingClientRect().top - revealDelayPx(el);
+      const p = Math.min(1, Math.max(0, (start - top) / (start - end)));
+      if (p <= 0) continue;
+      const e = easeOutCubic(p);
+      el.style.opacity = e;
+      el.style.transform = p >= 1 ? 'none' : `translateY(${(1-e)*34}px) scale(${(0.95 + e*0.05).toFixed(3)})`;
+      if (p >= 1) el.dataset.shown = '1';
     }
   }
 
   /* parallax blobs + any [data-parallax] */
   const plx = [...document.querySelectorAll('[data-parallax]')];
   const blobs = [...document.querySelectorAll('#blobs .blob')];
+  function cachePlx(){ plx.forEach(el => { el._plxTop = el.getBoundingClientRect().top + scrollY; el._plxH = el.offsetHeight; }); }
+  cachePlx();
+
+  /* ---- lazy video loading: only fetch a clip once its section is close
+     to the viewport, instead of every <video> competing for bandwidth on
+     page load (that contention is what made clips feel slow to "trigger"). ---- */
+  function ensureLoaded(vid){
+    if (vid.dataset.src) {
+      vid.src = vid.dataset.src;
+      delete vid.dataset.src;
+      vid.load();
+    }
+  }
+  const lazyObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      ensureLoaded(e.target);
+      lazyObs.unobserve(e.target);
+    });
+  }, {rootMargin: '800px 0px', threshold: 0.01});
+  document.querySelectorAll('video[data-src]').forEach(vid => lazyObs.observe(vid));
 
   /* ---- loop vids (autoplay + boucle dès que visible) ---- */
   const loopVids = [...document.querySelectorAll('.loop-vid')];
-  loopVids.forEach(vid => { vid.muted = true; vid.loop = true; });
+  loopVids.forEach(vid => {
+    vid.muted = true; vid.loop = true;
+    vid.addEventListener('loadeddata', () => { if (vid.dataset.intersecting === '1') vid.play().catch(()=>{}); });
+  });
   const loopObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) e.target.play().catch(()=>{});
-      else e.target.pause();
+      const vid = e.target;
+      vid.dataset.intersecting = e.isIntersecting ? '1' : '0';
+      if (e.isIntersecting) { ensureLoaded(vid); vid.play().catch(()=>{}); }
+      else vid.pause();
     });
   }, {threshold: 0.25});
   loopVids.forEach(vid => loopObs.observe(vid));
@@ -76,24 +114,40 @@
     });
   }
 
-  let ticking=false;
+  /* ---- smoothed scroll engine ----
+     A persistent rAF loop lerps a `smoothY` value toward the real scroll
+     position. Parallax/blobs read smoothY, so their motion keeps easing
+     between scroll events instead of jumping in scroll-event-sized steps —
+     this is what actually reads as "fluid" rather than mechanical. The loop
+     self-stops once settled (no wasted frames while idle) and restarts on
+     the next scroll. Video scrubbing stays on the raw position so pinned
+     clips remain exactly locked to the scrollbar. */
+  let smoothY = scrollY, looping = false;
   function frame(){
+    const diff = scrollY - smoothY;
+    smoothY += diff * 0.16;
+    if (Math.abs(diff) < 0.4) smoothY = scrollY;
+
     const k = cfg('parallax',1);
     plx.forEach(el=>{
-      const r = el.getBoundingClientRect();
-      const off = (r.top + r.height/2 - innerHeight/2)/innerHeight;
+      const center = el._plxTop + el._plxH/2 - smoothY - innerHeight/2;
+      const off = center/innerHeight;
       const sp = (parseFloat(el.dataset.parallax)||0.12) * k;
       el.style.translate = `0 ${(-off*sp*100).toFixed(2)}px`;
     });
-    blobs.forEach((b,i)=>{ b.style.translate = `0 ${(-scrollY*(0.04+i*0.015)*k).toFixed(1)}px`; });
+    blobs.forEach((b,i)=>{ b.style.translate = `0 ${(-smoothY*(0.04+i*0.015)*k).toFixed(1)}px`; });
     checkReveals();
     scrubVideos();
     scrubPins();
-    ticking=false;
+
+    looping = Math.abs(scrollY - smoothY) > 0.05;
+    if (looping) requestAnimationFrame(frame);
   }
-  addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(frame); ticking=true; } }, {passive:true});
-  addEventListener('resize', frame, {passive:true});
-  frame(); requestAnimationFrame(frame); addEventListener('load', frame); setTimeout(frame,300);
+  function kick(){ if(!looping){ looping = true; requestAnimationFrame(frame); } }
+  addEventListener('scroll', kick, {passive:true});
+  addEventListener('resize', ()=>{ cachePlx(); frame(); }, {passive:true});
+  addEventListener('load', ()=>{ cachePlx(); frame(); });
+  frame(); setTimeout(()=>{ cachePlx(); frame(); }, 300);
 
   /* ---- frosted hover (galerie c-c bouteilles) ---- */
   document.querySelectorAll('.frost-wrap').forEach(wrap => {
@@ -163,8 +217,10 @@
       const card = vid.closest('.gour');
       const bar = card.querySelector('.gour-progress');
       if (gourTimer) clearInterval(gourTimer);
-      vid.currentTime = 0;
-      vid.play().catch(() => {});
+      ensureLoaded(vid);
+      const start = () => { vid.currentTime = 0; vid.play().catch(() => {}); };
+      if (vid.readyState >= 2) start();
+      else vid.addEventListener('loadeddata', start, { once: true });
       gourTimer = setInterval(() => {
         if (vid.duration) bar.style.width = (vid.currentTime / vid.duration * 100) + '%';
       }, 100);

@@ -17,5 +17,6 @@ echo "  URL : http://localhost:$PORT/project/"
 echo "  Fermez cette fenêtre pour arrêter."
 echo "========================================"
 
-# Lancer le serveur
-python3 -m http.server $PORT
+# Lancer le serveur (avec support des requêtes Range, nécessaire pour que
+# les vidéos scrollées se déclenchent/scrubbent correctement)
+python3 serve.py $PORT
