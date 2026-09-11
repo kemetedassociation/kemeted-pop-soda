@@ -421,7 +421,15 @@
       }
     }
 
-    // 2 — Envoi email à kemeted.association@gmail.com via Web3Forms
+    // 2 — Ajout à la vraie liste d'abonnés (Supabase), pour les campagnes
+    // (nouveautés, lancements...) et les relances automatiques
+    if (window.kemetedAuth && window.kemetedAuth.client) {
+      window.kemetedAuth.client.from('subscribers').insert({ email: email })
+        .then(function(){})
+        .catch(function(){});
+    }
+
+    // 3 — Envoi email à kemeted.association@gmail.com via Web3Forms
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },

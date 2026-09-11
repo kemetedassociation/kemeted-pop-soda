@@ -51,12 +51,45 @@ Un client demande le tarif pro depuis `compte.html` (bouton "Demander le tarif p
 
 Son tableau de bord affichera automatiquement la section tarifs pro à sa prochaine connexion.
 
-## 6. Créer les liens de paiement B2B
+## 6. Panier + paiement dynamique
 
-Les prix réduits pro ne sont pas automatiques — crée 4 nouveaux **Payment Links** dans Stripe (comme les 4 existants, mais au tarif pro), puis colle leurs URLs dans `project/pop/pop-account.js`, objet `B2B_LINKS` en haut du fichier.
+Depuis la mise à jour panier, les prix (B2C/B2B, -15%) sont calculés automatiquement côté serveur par `create-checkout-session` — plus besoin de créer des Payment Links séparés pour le B2B. Le catalogue (prix, noms) vit à deux endroits qui doivent rester synchronisés :
+- `project/pop/pop-products.js` (affichage côté site)
+- `supabase/functions/create-checkout-session/index.ts`, objet `CATALOG` (source de vérité pour le paiement)
+
+## 7. Newsletter, panier abandonné, demande d'avis (emailing automatique)
+
+Ça tourne sur [Resend](https://resend.com) — crée un compte, récupère une clé API (*API Keys → Create*), puis :
+
+```bash
+npx supabase secrets set RESEND_API_KEY=re_xxx
+```
+
+Par défaut les emails partent de `onboarding@resend.dev` (fonctionne pour tester). Pour envoyer aux vrais clients avec ton propre nom de domaine, vérifie un domaine dans Resend (*Domains*) puis :
+
+```bash
+npx supabase secrets set RESEND_FROM="Kemeted Saveur <hello@tondomaine.fr>"
+```
+
+Trois fonctions tournent automatiquement (déjà planifiées via `pg_cron`, voir `migration-4-cron-schedule.sql`) :
+- **`send-abandoned-cart-reminders`** — toutes les 15 min, relance les paniers inactifs depuis 2h (uniquement pour les clients connectés — voir note plus bas)
+- **`send-review-requests`** — tous les jours à 9h, demande un avis 14 jours après une commande
+
+Une quatrième est à déclencher **manuellement** pour annoncer un lancement/nouveauté :
+
+```bash
+curl -X POST https://kpsuwkbrovbuudcndaot.supabase.co/functions/v1/send-newsletter-campaign \
+  -H "x-admin-secret: <ADMIN_SECRET — demande-le à Claude ou regarde Edge Functions → Secrets>" \
+  -H "Content-Type: application/json" \
+  -d '{"subject":"Nouvelle saveur chez Kemeted !","message":"<p>Le texte de ton email en HTML simple...</p>"}'
+```
+
+Elle envoie à tous les abonnés de la table `subscribers` (alimentée par le formulaire newsletter du site) qui ne se sont pas désinscrits.
+
+**Note importante sur le panier abandonné** : le panier "public" du site vit dans le `localStorage` du navigateur — invisible au serveur. Un client doit donc être **connecté** (`compte.html`) pour que son panier soit synchronisé côté Supabase (table `carts`) et puisse déclencher une relance. Un visiteur non connecté qui abandonne son panier ne reçoit pas d'email (on n'a pas son adresse).
 
 ## Comment ça marche, en bref
 
-- Un client connecté qui clique "Commander" sur le site voit son `client_reference_id` (son id de compte) ajouté à l'URL Stripe.
-- Stripe déclenche le webhook à la fin du paiement → la fonction retrouve le client (par `client_reference_id`, ou par email en repli), enregistre la commande et crédite 1 point par euro dépensé.
-- RLS garantit qu'un client ne peut lire que ses propres commandes/points, et ne peut jamais s'attribuer lui-même le tarif pro ou des points (seul le webhook, avec la clé `service_role`, peut écrire ces valeurs).
+- Un client connecté qui commande via le panier voit son `client_reference_id` (son id de compte) attaché à la session Stripe créée dynamiquement.
+- Stripe déclenche le webhook à la fin du paiement → la fonction retrouve le client (par `client_reference_id`, ou par email en repli), enregistre la commande, crédite 1 point par euro dépensé, et décrémente le stock des articles limités (coffret de lancement).
+- RLS garantit qu'un client ne peut lire/modifier que ses propres données (panier, commandes, points), et ne peut jamais s'attribuer lui-même le tarif pro ou des points (seuls le webhook et les fonctions planifiées, via `service_role`, peuvent écrire ces valeurs).

@@ -9,8 +9,33 @@
   var ROOT = window.KEMETED_ROOT || './';
 
   function loadCart() { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; } }
-  function persist() { try { localStorage.setItem(STORE_KEY, JSON.stringify(cart)); } catch (e) {} renderAll(); }
+  function persist() { try { localStorage.setItem(STORE_KEY, JSON.stringify(cart)); } catch (e) {} syncCartToServer(); renderAll(); }
   var cart = loadCart();
+
+  /* Synced to Supabase (debounced) whenever the shopper is logged in —
+     this is what lets the abandoned-cart reminder job see carts at all,
+     since the "real" cart otherwise only lives in this browser's
+     localStorage, invisible to the server. */
+  var syncTimer = null;
+  function syncCartToServer() {
+    if (!window.kemetedAuth) return;
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(function () {
+      window.kemetedAuth.getSession().then(function (session) {
+        if (!session) return;
+        if (!cart.length) {
+          window.kemetedAuth.client.from('carts').delete().eq('customer_id', session.user.id);
+        } else {
+          window.kemetedAuth.client.from('carts').upsert({
+            customer_id: session.user.id,
+            items: cart,
+            updated_at: new Date().toISOString(),
+            reminder_sent_at: null
+          });
+        }
+      });
+    }, 1200);
+  }
 
   function findItem(id) { return cart.filter(function (i) { return i.id === id; })[0]; }
   function addToCart(id, qty) {
