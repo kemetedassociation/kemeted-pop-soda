@@ -6,16 +6,20 @@
   const CFG = window.POP_CFG = window.POP_CFG || {};
   const cfg = (k,d)=> (CFG[k]!==undefined ? CFG[k] : d);
 
-  /* nav scrolled */
+  /* nav scrolled — folded into the main rAF loop below instead of its own
+     unthrottled scroll listener, so it doesn't force a style recalc on
+     every raw scroll event outside the batched frame */
   const nav = document.querySelector('.nav');
-  const navScroll = ()=> nav.classList.toggle('scrolled', scrollY>40);
-  addEventListener('scroll', navScroll, {passive:true}); navScroll();
 
   /* reveals — continuous, scroll-linked entrance instead of a one-shot CSS
      transition: opacity/translate track scroll progress directly, so the
      pace of the reveal follows the pace of the scroll (slow scroll = slow
      reveal). Locks its final inline state once fully in, like before, so a
-     throttled frame never leaves an element half-hidden. */
+     throttled frame never leaves an element half-hidden.
+     Positions are cached once (refreshed on resize/load) instead of read
+     live every frame — a live getBoundingClientRect() per element per
+     frame is what forces the browser to recompute layout on every scroll
+     tick, and that's the main source of scroll jank on a long page. */
   const reveals = [...document.querySelectorAll('.reveal')];
   const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
   const revealDelayPx = el => el.classList.contains('d4') ? 150
@@ -23,11 +27,14 @@
     : el.classList.contains('d2') ? 75
     : el.classList.contains('d1') ? 40 : 0;
   reveals.forEach(el => { el.style.transition = 'none'; });
+  function cacheReveals(){
+    reveals.forEach(el => { if(!el.dataset.shown) el._revealTop = el.getBoundingClientRect().top + scrollY; });
+  }
   function checkReveals(){
     const start = innerHeight*0.92, end = innerHeight*0.5;
     for(const el of reveals){
       if(el.dataset.shown) continue;
-      const top = el.getBoundingClientRect().top - revealDelayPx(el);
+      const top = el._revealTop - scrollY - revealDelayPx(el);
       const p = Math.min(1, Math.max(0, (start - top) / (start - end)));
       if (p <= 0) continue;
       const e = easeOutCubic(p);
@@ -41,6 +48,8 @@
   const plx = [...document.querySelectorAll('[data-parallax]')];
   const blobs = [...document.querySelectorAll('#blobs .blob')];
   function cachePlx(){ plx.forEach(el => { el._plxTop = el.getBoundingClientRect().top + scrollY; el._plxH = el.offsetHeight; }); }
+  plx.forEach(el => { el.style.willChange = 'translate'; });
+  blobs.forEach(el => { el.style.willChange = 'translate'; });
   cachePlx();
 
   /* ---- lazy video loading: only fetch a clip once its section is close
@@ -85,29 +94,33 @@
     const section = vid.closest('section');
     if (section) scrollVids.push({ vid, section });
   });
+  const vidPins = [...document.querySelectorAll('.vid-pin')].map(section => ({
+    section, vid: section.querySelector('video'), bar: section.querySelector('.vid-pin__bar')
+  }));
+  // offsetTop/offsetHeight are layout-forcing reads too — cache them once
+  // instead of on every scroll frame, same reasoning as cacheReveals().
+  function cacheSections(){
+    scrollVids.forEach(sv => { sv._top = sv.section.offsetTop; sv._h = sv.section.offsetHeight; });
+    vidPins.forEach(vp => { vp._top = vp.section.offsetTop; vp._h = vp.section.offsetHeight; });
+  }
   function scrubVideos(){
     const vh = innerHeight, sy = scrollY;
-    scrollVids.forEach(({vid, section}) => {
+    scrollVids.forEach(({vid, _top, _h}) => {
       if (!vid.duration || isNaN(vid.duration)) return;
-      const top = section.offsetTop, h = section.offsetHeight;
-      const progress = Math.min(1, Math.max(0, (sy + vh - top) / (h + vh)));
+      const progress = Math.min(1, Math.max(0, (sy + vh - _top) / (_h + vh)));
       const t = progress * vid.duration;
       if (Math.abs(vid.currentTime - t) > 0.04) vid.currentTime = t;
     });
   }
 
   /* ---- vid-pin: sticky fullscreen scroll-scrub ---- */
-  const vidPins = [...document.querySelectorAll('.vid-pin')];
   function scrubPins(){
     const sy = scrollY, vh = innerHeight;
-    vidPins.forEach(section => {
-      const vid = section.querySelector('video');
-      const bar = section.querySelector('.vid-pin__bar');
+    vidPins.forEach(({vid, bar, _top, _h}) => {
       if (!vid || !vid.duration || isNaN(vid.duration)) return;
-      const top = section.offsetTop;
-      const scrollable = section.offsetHeight - vh;
+      const scrollable = _h - vh;
       if (scrollable <= 0) return;
-      const progress = Math.min(1, Math.max(0, (sy - top) / scrollable));
+      const progress = Math.min(1, Math.max(0, (sy - _top) / scrollable));
       const t = progress * vid.duration;
       if (Math.abs(vid.currentTime - t) > 0.04) vid.currentTime = t;
       if (bar) bar.style.width = (progress * 100) + '%';
@@ -122,11 +135,14 @@
      self-stops once settled (no wasted frames while idle) and restarts on
      the next scroll. Video scrubbing stays on the raw position so pinned
      clips remain exactly locked to the scrollbar. */
-  let smoothY = scrollY, looping = false;
+  let smoothY = scrollY, looping = false, lastNavState = null;
   function frame(){
     const diff = scrollY - smoothY;
     smoothY += diff * 0.16;
     if (Math.abs(diff) < 0.4) smoothY = scrollY;
+
+    const navState = scrollY > 40;
+    if (navState !== lastNavState) { nav.classList.toggle('scrolled', navState); lastNavState = navState; }
 
     const k = cfg('parallax',1);
     plx.forEach(el=>{
@@ -144,10 +160,11 @@
     if (looping) requestAnimationFrame(frame);
   }
   function kick(){ if(!looping){ looping = true; requestAnimationFrame(frame); } }
+  function recache(){ cachePlx(); cacheReveals(); cacheSections(); frame(); }
   addEventListener('scroll', kick, {passive:true});
-  addEventListener('resize', ()=>{ cachePlx(); frame(); }, {passive:true});
-  addEventListener('load', ()=>{ cachePlx(); frame(); });
-  frame(); setTimeout(()=>{ cachePlx(); frame(); }, 300);
+  addEventListener('resize', recache, {passive:true});
+  addEventListener('load', recache);
+  recache(); setTimeout(recache, 300);
 
   /* ---- frosted hover (galerie c-c bouteilles) ---- */
   document.querySelectorAll('.frost-wrap').forEach(wrap => {
