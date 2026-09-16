@@ -2,3 +2,4 @@ input-original/
 .tools/
 
 supabase/.temp/
+.DS_Store
