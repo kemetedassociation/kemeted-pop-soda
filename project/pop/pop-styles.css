@@ -552,6 +552,16 @@ a.eco{text-decoration:none;color:inherit;display:flex;flex-direction:column;just
 @keyframes crowTyping{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:.9;transform:translateY(-3px)}}
 @media(max-width:480px){ .crow-chat{right:12px;left:12px;width:auto;bottom:92px} .crow-launcher{right:16px;bottom:16px} }
 
+/* ============ INSTALLER L'APPLI (PWA) ============ */
+.install-pwa-btn{position:fixed;left:22px;bottom:22px;z-index:940;
+  font-family:var(--font-display);font-weight:700;font-size:13.5px;
+  background:#fff;color:var(--bissap);border:2px solid var(--bissap);
+  padding:12px 20px;border-radius:30px;cursor:pointer;
+  box-shadow:0 8px 20px -8px rgba(42,26,20,.35);
+  transition:transform .2s var(--pop),background .2s,color .2s}
+.install-pwa-btn:hover{background:var(--bissap);color:#fff;transform:translateY(-2px)}
+@media(max-width:480px){ .install-pwa-btn{left:16px;bottom:16px;font-size:12.5px;padding:10px 16px} }
+
 /* ============ COMPTE CLIENT ============ */
 .account-page{padding:150px var(--pad) 100px;max-width:640px;margin:0 auto}
 .account-page h1{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4.5vw,48px);color:var(--bissap);margin-bottom:36px;line-height:1.05}

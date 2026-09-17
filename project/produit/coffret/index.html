@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coffret Découverte — Kemeted Saveur</title>
 <link rel="stylesheet" href="../../pop/pop-styles.css">
+<link rel="manifest" href="../../manifest.json">
+<meta name="theme-color" content="#7A1F38">
+<link rel="icon" href="../../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Kemeted">
+
 <script>window.KEMETED_ROOT = '../../';</script>
 </head>
 <body class="no-blobs reveal-off">
@@ -113,5 +121,6 @@
       });
   })();
 </script>
+<script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('../../sw.js',{scope:'../../'}));}</script>
 </body>
 </html>

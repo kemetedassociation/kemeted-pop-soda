@@ -321,4 +321,35 @@
   }
   buildFullPush();
 
+  /* ===================== INSTALLER L'APPLI (PWA) ===================== */
+  // Chrome/Edge (desktop et Android) déclenchent cet événement quand le
+  // site remplit les critères d'installabilité (manifest + service worker)
+  // — on l'intercepte pour proposer notre propre bouton, plus visible que
+  // la petite icône discrète dans la barre d'adresse.
+  var deferredInstallPrompt = null;
+  var installBtn = null;
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if (!installBtn) {
+      installBtn = document.createElement('button');
+      installBtn.type = 'button';
+      installBtn.className = 'install-pwa-btn';
+      installBtn.innerHTML = '📲 Installer l\'appli';
+      installBtn.addEventListener('click', function(){
+        if (!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.finally(function(){
+          deferredInstallPrompt = null;
+          installBtn.remove();
+          installBtn = null;
+        });
+      });
+      document.body.appendChild(installBtn);
+    }
+  });
+  window.addEventListener('appinstalled', function(){
+    if (installBtn) { installBtn.remove(); installBtn = null; }
+  });
+
 })();
