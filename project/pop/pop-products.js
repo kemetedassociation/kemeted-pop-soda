@@ -15,8 +15,8 @@ window.KEMETED_PRODUCTS = {
     img: 'assets/splash-bissap.png',
     tagline: 'La fleur d\'hibiscus rouge, acidulée et florale. Le classique qui réveille.',
     description: 'Le Bissap Kemeted part de la fleur d\'hibiscus rouge, infusée puis pressée à froid, sans sucre ajouté. Acidulé, floral, vif — c\'est le jus qui réveille les papilles dès la première gorgée.',
-    tags: ['Antioxydant', 'Vitamine C'],
-    benefits: ['Riche en antioxydants', 'Soutient la tension', 'Source de vitamine C']
+    tags: ['Floral', 'Acidulé'],
+    benefits: ['Fleur d\'hibiscus rouge', 'Acidulé et floral', 'Se boit bien frais']
   },
   blanc: {
     id: 'blanc', name: 'Bissap Blanc', cat: 'Hibiscus blanc',
@@ -25,28 +25,28 @@ window.KEMETED_PRODUCTS = {
     img: 'assets/splash-bissap.png',
     tagline: 'Plus doux, plus solaire. Une variété rare à la robe orangée.',
     description: 'Cousin plus doux du bissap classique, l\'hibiscus blanc donne un jus solaire à la robe orangée — moins acidulé, plus rond, parfait pour les palais qui préfèrent la douceur.',
-    tags: ['Digestion', 'Léger'],
-    benefits: ['Facilite la digestion', 'Léger, hydratant', 'Peu calorique']
+    tags: ['Doux', 'Léger'],
+    benefits: ['Hibiscus blanc, plus rare', 'Doux et rond', 'Léger et désaltérant']
   },
   ditakh: {
     id: 'ditakh', name: 'Ditakh', cat: 'Detarium',
     price: 490, priceB2B: kemetedB2B(490),
     color: '#727F38', bg: '#D6EEDF',
     img: 'assets/ditakh.jpg',
-    tagline: 'Le fruit vert acidulé du Sahel, vif et plein de fibres.',
-    description: 'Le ditakh (Detarium senegalense) est un fruit vert du Sahel, peu connu hors d\'Afrique de l\'Ouest — vif, acidulé, gorgé de fibres. Un shot de vitalité qu\'on adore après le sport.',
-    tags: ['Fibres', 'Immunité'],
-    benefits: ['Très riche en fibres', 'Booste l\'immunité', 'Énergie durable']
+    tagline: 'Le fruit vert acidulé du Sahel, vif et végétal.',
+    description: 'Le ditakh (Detarium senegalense) est un fruit vert du Sahel, peu connu hors d\'Afrique de l\'Ouest — vif, acidulé, végétal. Un jus frais qu\'on adore après le sport.',
+    tags: ['Vif', 'Végétal'],
+    benefits: ['Fruit sauvage du Sahel', 'Goût vif et végétal', 'Pulpe épaisse et fraîche']
   },
   bouye: {
     id: 'bouye', name: 'Bouye', cat: 'Baobab',
     price: 490, priceB2B: kemetedB2B(490),
     color: '#B6905C', bg: '#EFE3CF',
     img: 'assets/bouye.jpg',
-    tagline: 'La pulpe crémeuse du baobab. Onctueuse et championne du calcium.',
-    description: 'Le bouye est extrait de la pulpe du fruit du baobab, l\'arbre emblématique d\'Afrique. Onctueux et légèrement acidulé, c\'est une vraie source de calcium et de prébiotiques naturels.',
-    tags: ['Calcium', 'Crémeux'],
-    benefits: ['6× plus de calcium', 'Source de potassium', 'Prébiotiques naturels']
+    tagline: 'La pulpe crémeuse du baobab. Onctueuse et légèrement acidulée.',
+    description: 'Le bouye est extrait de la pulpe du fruit du baobab, l\'arbre emblématique d\'Afrique. Onctueux et légèrement acidulé, c\'est une boisson crémeuse qui se boit comme un milkshake.',
+    tags: ['Baobab', 'Crémeux'],
+    benefits: ['Pulpe de fruit du baobab', 'Onctueux et crémeux', 'Recette traditionnelle']
   },
 
   /* ---- Gourmandise (prix indicatifs — à ajuster ici si besoin, c'est
